@@ -1,0 +1,105 @@
+/* Base resets to ensure consistent rendering across browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling: Centers content vertically and horizontally */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Smooth, premium modern gradient background */
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+/* The main box that holds our UI elements */
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3rem 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    /* Micro-animation for when the user hovers over the card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Title styling */
+h1 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+/* Layout for the input and button */
+.search-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Input field styling */
+input[type="text"] {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+    border: 2px solid #e1e8ed;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+/* What happens when the user clicks inside the input */
+input[type="text"]:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+/* Button styling */
+button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    /* Smooth transitions for hover effects */
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Button hover effect */
+button:hover {
+    background: #2980b9;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Button click effect */
+button:active {
+    transform: translateY(1px);
+}
+
+/* Empty div styling for future outputs */
+.result-section {
+    min-height: 24px;
+    color: #27ae60;
+    font-size: 0.95rem;
+    font-weight: 500;
+}

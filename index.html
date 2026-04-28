@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Hospital Finder</title>
+    
+    <!-- Modern typography from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Link to our CSS styling file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- Main wrapper to center our content -->
+    <div class="container">
+        
+        <!-- 1. Title -->
+        <h1>Smart Hospital Finder 🏥</h1>
+        
+        <div class="search-box">
+            <!-- 2. Input field for symptoms -->
+            <input type="text" id="symptomInput" placeholder="Enter your symptom">
+            
+            <!-- 3. Search button that triggers JavaScript -->
+            <button id="searchBtn" onclick="searchSymptom()">Search</button>
+        </div>
+
+        <!-- 4. Empty result section to display output later -->
+        <div id="result" class="result-section"></div>
+        
+    </div>
+
+    <!-- Link to our JavaScript logic file (placed at the end so HTML loads first) -->
+    <script src="script.js"></script>
+</body>
+</html>
