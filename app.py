@@ -4,18 +4,32 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app) # Enable CORS so the frontend can communicate with the backend
 
+# Define a dictionary that maps common symptoms to medical specializations
+symptom_map = {
+    "fever": "General Physician",
+    "chest pain": "Cardiologist",
+    "skin rash": "Dermatologist",
+    "headache": "Neurologist",
+    "eye pain": "Ophthalmologist"
+}
+
 @app.route('/search', methods=['POST'])
 def search():
     # Get the JSON data sent from the frontend
     data = request.get_json()
-    
-    # Extract the symptom
+
     symptom = data.get('symptom', '')
+
+    # Convert the symptom to lowercase as requested
+    symptom_lower = symptom.lower().strip()
     
-    # Create the response dictionary
+    # Search in symptom_map. If not found, default to "General Physician"
+    specialization = symptom_map.get(symptom_lower, "General Physician")
+    
+    # Create the response dictionary with the lowercase symptom and specialization
     response = {
-        "message": "Received symptom",
-        "symptom": symptom
+        "symptom": symptom_lower,
+        "specialization": specialization
     }
     
     # Return it as JSON

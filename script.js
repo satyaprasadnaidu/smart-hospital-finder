@@ -31,8 +31,9 @@ async function searchSymptom() {
         const data = await response.json();
         console.log("Backend Response:", data);
         
-        resultSection.textContent = "Search successful! Check console for response.";
-        resultSection.style.color = "#27ae60"; // Green color
+        // Display the recommended specialization inside the result div
+        resultSection.innerHTML = `Recommended Specialization: <strong>${data.specialization}</strong>`;
+        resultSection.style.color = "#27ae60"; // Green color for successful recommendation
     } catch (error) {
         console.error("Error connecting to backend:", error);
         resultSection.textContent = "Error connecting to backend.";
