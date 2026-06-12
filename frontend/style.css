@@ -1,0 +1,268 @@
+/* ============================================================
+   Smart Hospital Finder - style.css
+   Located in: frontend/style.css
+   ============================================================ */
+
+/* Base resets to ensure consistent rendering across browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling: Centers content vertically and horizontally */
+body {
+    font-family: 'Inter', sans-serif;
+    /* Smooth, premium modern gradient background */
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+/* The main card that holds all UI elements */
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3rem 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    /* Micro-animation: card lifts slightly on hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Page title */
+h1 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+/* ============================================================
+   Search Section
+   ============================================================ */
+
+/* Layout for the input and button */
+.search-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Input field styling */
+input[type="text"] {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+    border: 2px solid #e1e8ed;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Input field focus: highlights with a blue glow */
+input[type="text"]:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+/* Default button styling (used for Search button) */
+button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    /* Smooth hover transition */
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Search button hover: darker blue + shadow lift */
+button:hover {
+    background: #2980b9;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Button click / press feedback */
+button:active {
+    transform: translateY(1px);
+}
+
+/* Result section: shows backend recommendation text */
+.result-section {
+    min-height: 24px;
+    color: #27ae60;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* ============================================================
+   Location Detection Section
+   ============================================================ */
+
+/* Wrapper for location button, card and error message */
+.location-section {
+    margin: 2rem 0;
+    padding-top: 1.8rem;
+    /* Visual divider between search and location sections */
+    border-top: 1px dashed #e1e8ed;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* 
+   Location button styling — green gradient to distinguish
+   it visually from the blue Search button
+*/
+#locationBtn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Hover: deeper green + stronger shadow */
+#locationBtn:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    transform: translateY(-2px);
+}
+
+#locationBtn:active {
+    transform: translateY(1px);
+}
+
+/* Disabled state while detecting location */
+#locationBtn:disabled {
+    background: #a7f3d0;
+    color: #047857;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* 
+   Location Card: displayed after coordinates are retrieved.
+   Uses a soft glass-like gradient with a green accent border.
+*/
+.location-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 244, 246, 0.9) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    /* Slide-in animation when the card first appears */
+    animation: slideDownFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Card hover: lifts slightly */
+.location-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    border-color: rgba(16, 185, 129, 0.4);
+}
+
+/* Hidden class: toggled by script.js to show/hide the card */
+.location-card.hidden {
+    display: none;
+}
+
+/* Card heading */
+.location-card h3 {
+    font-size: 1.15rem;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Each coordinate row */
+.location-card p {
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin: 0.4rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+    padding-bottom: 0.4rem;
+}
+
+.location-card p:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Coordinate value badges (monospace for readability) */
+.location-card span {
+    font-family: monospace;
+    font-weight: 600;
+    color: #111827;
+    background: rgba(229, 231, 235, 0.5);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+}
+
+/* Error message (e.g. "Location access denied") */
+.location-error {
+    color: #ef4444;
+    font-size: 0.9rem;
+    font-weight: 500;
+    min-height: 20px;
+    text-align: center;
+    /* Subtle shake animation draws attention to the error */
+    animation: shake 0.3s ease-in-out;
+}
+
+/* ============================================================
+   Keyframe Animations
+   ============================================================ */
+
+/* Card slides down and fades in smoothly */
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Error message shakes horizontally */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%       { transform: translateX(-4px); }
+    75%       { transform: translateX(4px); }
+}
