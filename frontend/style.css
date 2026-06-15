@@ -29,7 +29,7 @@ body {
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     text-align: center;
-    max-width: 450px;
+    max-width: 700px;   /* widened to comfortably hold the 400px map */
     width: 90%;
     /* Micro-animation: card lifts slightly on hover */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -265,4 +265,73 @@ button:active {
     0%, 100% { transform: translateX(0); }
     25%       { transform: translateX(-4px); }
     75%       { transform: translateX(4px); }
+}
+
+/* ============================================================
+   Interactive Map Section (Leaflet.js)
+   ============================================================ */
+
+/*
+   Wrapper for the map heading + map canvas.
+   Hidden by default; script.js reveals it after location is
+   successfully detected by toggling the 'visible' class.
+*/
+.map-section {
+    margin: 1.5rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px dashed #e1e8ed;
+    text-align: left;
+    /* Hidden until location is available */
+    display: none;
+    animation: slideDownFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Show the map section when script adds this class */
+.map-section.visible {
+    display: block;
+}
+
+/* Map section heading */
+.map-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/*
+   The actual Leaflet map canvas.
+   Must have an explicit height — Leaflet won't render without it.
+*/
+#map {
+    height: 400px;            /* required by Leaflet */
+    width: 100%;              /* fill the container */
+    border-radius: 12px;      /* rounded corners */
+    overflow: hidden;         /* clip map tiles to rounded corners */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);  /* subtle green accent border */
+    transition: box-shadow 0.3s ease;
+}
+
+/* Hover: lift the map card slightly */
+#map:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================================
+   Responsive Design — narrow screens
+   ============================================================ */
+@media (max-width: 480px) {
+    /* Reduce padding on very small screens */
+    .container {
+        padding: 2rem 1.25rem;
+    }
+
+    /* Slightly shorter map on phones to avoid excessive scrolling */
+    #map {
+        height: 280px;
+    }
 }

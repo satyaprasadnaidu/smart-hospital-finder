@@ -1,65 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Smart Hospital Finder - Find the right hospital for your symptoms instantly.">
+
     <title>Smart Hospital Finder</title>
-    
-    <!-- Modern typography from Google Fonts -->
+
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Link to our CSS styling file (same folder as index.html) -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
-    <!-- Main wrapper to center our content -->
+
     <div class="container">
-        
-        <!-- 1. Title -->
+
+        <!-- Project Title -->
         <h1>Smart Hospital Finder 🏥</h1>
-        
-        <!-- Search Section: Input + Search Button -->
+
+        <!-- Search Section -->
         <div class="search-box">
-            <!-- 2. Input field for symptoms -->
-            <input type="text" id="symptomInput" placeholder="Enter your symptom (e.g. fever, headache)">
-            
-            <!-- 3. Search button that triggers JavaScript -->
-            <button id="searchBtn" onclick="searchSymptom()">Search</button>
+
+            <input
+                type="text"
+                id="symptomInput"
+                placeholder="Enter your symptom (e.g. fever, headache)">
+
+            <button id="searchBtn" onclick="searchSymptom()">
+                Search
+            </button>
+
         </div>
 
-        <!-- Dedicated Location Section (below search section) -->
+        <!-- Location Section -->
         <div class="location-section">
-            <!-- Button to request browser geolocation -->
-            <button id="locationBtn" onclick="getUserLocation()">📍 Get My Location</button>
-            
-            <!-- Location card: hidden by default, shown after permission granted -->
+
+            <button id="locationBtn" onclick="getUserLocation()">
+                📍 Get My Location
+            </button>
+
             <div id="locationCard" class="location-card hidden">
+
                 <h3>📍 Your Location</h3>
-                <!-- Latitude and Longitude values are inserted here by script.js -->
-                <p>Latitude:  <span id="latitudeVal">-</span></p>
-                <p>Longitude: <span id="longitudeVal">-</span></p>
+
+                <p>
+                    Latitude:
+                    <span id="latitudeVal">-</span>
+                </p>
+
+                <p>
+                    Longitude:
+                    <span id="longitudeVal">-</span>
+                </p>
+
             </div>
-            
-            <!-- Error messages (e.g. "Location access denied") appear here -->
+
             <div id="locationError" class="location-error"></div>
+
         </div>
 
-        <!-- 4. Result section: shows recommended specialization from backend -->
+        <!-- Map Section -->
+        <div class="map-section" id="mapSection">
+
+            <h3 class="map-heading">
+                📍 Your Location on Map
+            </h3>
+
+            <div id="map"></div>
+
+        </div>
+
+        <!-- Results Section -->
         <div id="result" class="result-section"></div>
-        
+
     </div>
 
-    <!--
-        Link to our JavaScript logic file.
-        Placed at the bottom so the HTML loads first,
-        ensuring all elements exist before script.js runs.
-        
-        Backend API URL used in script.js: http://127.0.0.1:5000
-    -->
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Project JS -->
     <script src="script.js"></script>
+
 </body>
+
 </html>

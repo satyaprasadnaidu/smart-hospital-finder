@@ -5,6 +5,7 @@
 // This file handles:
 //   1. Symptom search → sends request to FastAPI backend
 //   2. Geolocation detection → uses browser Geolocation API
+//   3. Interactive map → Leaflet.js + OpenStreetMap tiles
 //
 // Backend API URL: http://127.0.0.1:5000
 // ============================================================
@@ -14,6 +15,13 @@
 // ----------------------------------------------------------
 let userLatitude  = null;  // Will hold the detected latitude
 let userLongitude = null;  // Will hold the detected longitude
+
+// ----------------------------------------------------------
+// Map Variables: track the Leaflet map instance and marker
+// so we can update them if the user clicks the button again
+// ----------------------------------------------------------
+let leafletMap    = null;  // Leaflet Map object (null until first init)
+let userMarker    = null;  // Leaflet Marker for the user's position
 
 
 // ==========================================================
@@ -126,6 +134,9 @@ function getUserLocation() {
 
             // Step 7: Reveal the location card (remove 'hidden' class)
             locationCard.classList.remove('hidden');
+
+            // Step 8: Show the map section and render / update the map
+            initOrUpdateMap(userLatitude, userLongitude);
         },
 
         // --- ERROR CALLBACK ---
@@ -134,7 +145,7 @@ function getUserLocation() {
             locationBtn.disabled = false;
             locationBtn.textContent = originalText;
 
-            // Step 8: Show an appropriate error message
+            // Step 9: Show an appropriate error message
             if (error.code === error.PERMISSION_DENIED) {
                 // User clicked "Block" on the browser permission prompt
                 locationError.textContent = "Location access denied";
@@ -144,4 +155,57 @@ function getUserLocation() {
             }
         }
     );
+}
+
+
+// ==========================================================
+// FUNCTION 3: initOrUpdateMap(lat, lng)
+// Called by: getUserLocation() after a successful position fix
+//
+// What it does:
+//   - First call  → creates a brand-new Leaflet map centred on
+//                   the user's coordinates and places a marker.
+//   - Later calls → pans / flies the existing map to the new
+//                   position and moves the marker (no full reload).
+// ==========================================================
+function initOrUpdateMap(lat, lng) {
+
+    // Show the map wrapper div (CSS class toggle)
+    const mapSection = document.getElementById('mapSection');
+    mapSection.classList.add('visible');
+
+    if (leafletMap === null) {
+        // ── FIRST TIME: create the map ──────────────────────────
+
+        // L.map('map') initialises Leaflet inside <div id="map">
+        // setView([lat, lng], zoom) centres the map and sets zoom level
+        leafletMap = L.map('map').setView([lat, lng], 13);
+
+        // Add OpenStreetMap tile layer (free, no API key required)
+        // {s} = subdomain, {z}/{x}/{y} = zoom/tile coords
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(leafletMap);
+
+        // Place a marker at the user's location with a friendly popup
+        userMarker = L.marker([lat, lng])
+            .addTo(leafletMap)
+            .bindPopup('<b>You are here</b>')
+            .openPopup();
+
+    } else {
+        // ── SUBSEQUENT CALLS: update existing map ──────────────
+
+        // flyTo() gives a smooth animated pan + zoom transition
+        leafletMap.flyTo([lat, lng], 13);
+
+        // Move the marker to the new position
+        userMarker.setLatLng([lat, lng]);
+
+        // Refresh the popup text and re-open it
+        userMarker
+            .bindPopup('<b>You are here</b>')
+            .openPopup();
+    }
 }
